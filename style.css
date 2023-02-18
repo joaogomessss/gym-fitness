@@ -1,0 +1,111 @@
+* {   
+
+      margin: 0;  
+      padding: 0;
+   
+   }
+
+   body {  
+
+      background-color:#1b1b1b;
+ 
+ }
+
+ 
+
+
+
+ 
+
+ 
+input  { 
+
+      color:white;
+      border-style: none;
+      padding: 5px;
+      border-radius: 10px;
+      background-color: #777777 ; 
+
+}
+
+button {   
+
+    background-color: #5e5e5e; 
+    color:white;
+    font-size: 20px;
+    border-radius: 10px;
+    
+    border-style:none;
+}
+
+
+
+
+h1 {
+
+  background-color: #5e5e5e;  
+  color:yellow;
+  padding:9px;
+
+}
+
+#plusBtn { 
+
+        color:yellow;
+        background-color:#5e5e5e;
+        font-size: 40px;
+        height:50px;
+        width:50px ;
+        border-radius: 100%;
+        border-style:none;
+
+
+}
+
+#totalCalCarbProtGord {  
+
+
+      color:yellow;
+      padding:5px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 5px;
+      display:none;
+
+
+}
+
+nav { 
+      display:flex;
+      background-color: #5e5e5e; 
+      justify-content:  space-between;
+
+
+}
+
+#container {
+            padding: 5px;
+
+
+}
+
+
+ul.ui-autocomplete {   
+
+
+      list-style:none;
+      width : fit-content;
+      height:fit-content;
+      
+    
+  
+}
+
+.ui-menu .ui-menu-item  {   
+
+  
+  max-width:150px;
+  
+  background-color:white;
+
+};
