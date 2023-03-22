@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<input placeholder="calories" id="calories">
+<input placeholder="carboidrates" id="carboidrates">
+<input placeholder="proteins" id="proteins">
+<input placeholder="fats" id="fats">
+<input placeholder="amount" id="amount">
+<button id="Cauculate">Cauculate</button>
+
+
+<script>
+
+let calories = document.querySelector("#calories");
+let carboidrates = document.querySelector("#carboidrates");
+let proteins = document.querySelector("#proteins");
+let fats = document.querySelector("#fats");
+let amount =  document.querySelector("#amount");
+
+
+let buttonX =  document.querySelector("button");
+buttonX.onclick = function () { 
+
+let ByGram =  {   cal: ( calories.value / amount.value  )  ,
+                  carb: ( carboidrates.value / amount.value  )  ,
+                  prot: ( proteins.value / amount.value  )  ,
+                  fat: ( fats.value / amount.value  )  ,
+}
+
+    console.log( "(" +ByGram.cal + "," + ByGram.carb + "," + ByGram.prot + "," + ByGram.fat + ")" );
+
+
+};
+</script>
+    
+</body>
+</html>

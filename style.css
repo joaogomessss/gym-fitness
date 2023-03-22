@@ -45,6 +45,7 @@ h1 {
 
   background-color: #5e5e5e;  
   color:yellow;
+  font-size:xx-large;
   padding:9px;
 
 }
@@ -85,6 +86,14 @@ nav {
 
 #container {
             padding: 5px;
+
+
+}
+
+
+.ui-helper-hidden-accessible{
+
+      display:none;
 
 
 }

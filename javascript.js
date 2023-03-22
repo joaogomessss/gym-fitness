@@ -1,62 +1,53 @@
 
-function Foods (cal,carb,prot,gord)  {     
+ function Food(cal, carb, prot, fat) {  // calories , .... , gorduras totais  
 
-    this.cal  = cal;
-    this.carb = carb;
-    this.prot = prot;
-    this.gord = gord;
+this.cal = cal
+this.carb = carb
+this.prot = prot
+this.fat = fat
 
- }
-
-let arroz         =  new Foods(1.5,2,0,0);
-let frango        =  new Foods(2,2,2,2);
-let tapiocanossagoma =  new Foods(3.3,0.8,0,0);
-let toscana       =  new Foods(2,2,2,2);
-let presunto      =  new Foods(1,0.1,0.2,0);
-let leite         =  new Foods(1, 0.1, 0.2 ,0);
-let arrozpainho   =  new Foods(3.7, 0.74, 0.06, 0);
-let cuzcuzcoringa =  new Foods(3.4, 0.76, 0.08, 0);
-let paofrances    =  new Foods(135, 25 , 3 , 0);
-let ovo           =  new Foods(80, 0 , 6 , 4.8);
-
-
-let foodsArray = [ "arroz" , "arroz painho" , "cuzcuz coringa" , "frango" , "tapioca nossa goma" , "toscana" , "presunto" , "pão francês" , "leite" ];
+};
 
 
 
- 
+let leiteccgl          = new Food(4.923076923076923,0.38461538461538464,0.26153846153846155,0.26153846153846155) ;            
+let nissimyoi          = new Food(4.549125168236878,0.5787348586810229,0.10363391655450875,0.2018842530282638) ;
+let cuzcuzcoringa      = new Food(3.4,0.76,0.08,0.02);
+
+
+
+let  boxForHoldBtns;
+
+     
+
+  
+  
+
+
+
+
+let foodsArray = [ "arroz" ,"cuzcuz coringa", "leitebom integral" , "leite ccgl" , "arroz painho" , "cuzcuz coringa" , "frango" , "nissim yoi" , "tapioca nossa goma" , "toscana" , "presunto" , "pão francês" , "leite" ];
+
 let totalCalRetrive = { totalCal:0 , totalCarb:0 , totalProt:0  };
 
-
 let result;
-
 
 let array = [];
 
 let totalCalCarbProtGord = document.querySelector("#totalCalCarbProtGord");
 
-
-
 let btnForCreateInputs = document.querySelector("#plusBtn");
-
-
 
 let container = document.querySelector("#container");
 
-btnForCreateInputs.onclick = () => tralha() ;
+btnForCreateInputs.onclick = () => CreateInput() ;
 
 
-function tralha() { // This function will create an  input for the user a  add meal name .
-
-if ( btnForCreateInputs.disabled == true) {
- alert();
-
-}
 
 
-else { 
+function  CreateInput() { // This function will create an  input for the user a  add meal name .
+
 let inputForUserAddMealName = document.createElement("input");
-
 inputForUserAddMealName.style.padding = "5px";
 inputForUserAddMealName.style.maxWidth = "500px"
 inputForUserAddMealName.style.marginBottom = "10px";
@@ -67,7 +58,7 @@ BtnForUserSubInput.style.background = "#5e5e5e" ;
 BtnForUserSubInput.style.color = "white";
 BtnForUserSubInput.style.padding = "5px";
 
-let  boxForHoldBtns= document.createElement("div");
+boxForHoldBtns = document.createElement("div");
 boxForHoldBtns.style.display = "grid" ;
 boxForHoldBtns.style.background = "#1b1b1b";
 boxForHoldBtns.style.maxWidth = "500px" ;
@@ -78,22 +69,22 @@ container.prepend(boxForHoldBtns);
 
 BtnForUserSubInput.onclick = () => createMainBox(inputForUserAddMealName.value,inputForUserAddMealName,btnForCreateInputs)  ;
 btnForCreateInputs.textContent = "-" ;
-btnForCreateInputs.onclick = function() { console.log() 
-
-  if (btnForCreateInputs.textContent == "-") {
-
-      container.removeChild(boxForHoldBtns);
-      btnForCreateInputs.textContent = "+";
-      btnForCreateInputs.onclick = () =>  tralha();
-  }
+btnForCreateInputs.onclick = () => CloseInput() ;
 
 
 };
 
 
-}
+function  CloseInput() { // This function will close the input for the user add the meal name . 
 
-}
+boxForHoldBtns.remove();
+btnForCreateInputs.textContent = "+" ;
+btnForCreateInputs.onclick = () => CreateInput()
+
+};
+
+
+
 
 
 
@@ -138,7 +129,6 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
     allDiv.style.display = "flex";
     allDiv.style.justifyContent = "space-between";
     
-
     allDiv.append(subBoxForHoldFoodName,boxForHoldsubBoxForHoldFoodNameAndBtns);
 
     let mainBox = document.createElement("div");
@@ -146,7 +136,6 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
     mainBox.style.marginTop = "15px";
     mainBox.style.borderRadius = "10px";
     mainBox.style.padding = "5px";
-
 
     mainBox.appendChild(allDiv);
     mainBox.style.background = "#5e5e5e";
@@ -157,30 +146,27 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
     general.push(mealChoosen);
     array.push(general);
 
-    
-  
-    console.log(array);
     localStorage.setItem("mealDetails" , JSON.stringify(array));
 
     inputForUserAddMealName.value = "" ;
 
 
-   
+
+
   
-
-    BtnToRemMainBox.onclick = function () {  // function to remove the main box let caralho = [];
+    BtnToRemMainBox.onclick = () => RemoveBox();
+    
+    
+    
+    function RemoveBox() {  // function to remove the main box that holds the meal name and its foods ;
       
-      general.shift();
-      console.log(general);
-      console.log(array);
-       
-
+      general.shift();  
       mainBox.remove();
 
       array =  array.filter(value => JSON.stringify(value) !== "[]");
 
       localStorage.setItem("mealDetails" , JSON.stringify(array));
-    }
+    };
     
   
 
@@ -236,10 +222,7 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
       source : foodsArray 
     });
 
-    btnForUserSubFoodNameAndAmount.onclick = function(){
-
-       
-    };
+   
     btnForUserSubFoodNameAndAmount.onclick  = () => addFood(inputForUserAddFoodName.value, inputForUserAddFoodAmount.value ,mainBox,general,BtnToRemMainBox,inputForUserAddFoodName,inputForUserAddFoodAmount)
    
     
@@ -256,34 +239,19 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
   
 
 }
-
-
  
-
-
-
-    
 }
-    function addFood(foodChoosen,amountChoosen ,mainBox,general,BtnToRemMainBox,inputForUserAddFoodName,inputForUserAddFoodAmount) { 
-     
+    
+
+function addFood(foodChoosen,amountChoosen ,mainBox,general,BtnToRemMainBox,inputForUserAddFoodName,inputForUserAddFoodAmount) { 
      
       foodChoosen.toLowerCase();
       
       let barao1 = foodChoosen.normalize("NFD").replace(/[\u0300\u0302]/g, "");
       let barao2 = barao1.normalize("NFD").replace(/\u0303/g, "");
-
-
-      console.log(barao2);
       
-     
-
       let newFoodChoosen = barao2.replaceAll(" " , "");
-      console.log(newFoodChoosen);
       
-
-      
-
-
       for (let i = 0 ; i < foodsArray.length  ; i++)  {
 
       if (foodChoosen == foodsArray[i]) { 
@@ -298,14 +266,10 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
 
   if (result == true ) {
       
-      
-          
-
-
+  
       inputForUserAddFoodName.value = "" ;
       inputForUserAddFoodAmount.value = "" ;
 
-      
       let subBoxForHoldFoodNameAndAmountChoosen =  document.createElement("div");
       subBoxForHoldFoodNameAndAmountChoosen.style.display = "flex";
       subBoxForHoldFoodNameAndAmountChoosen.style.color = "white";
@@ -315,24 +279,21 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
       subBoxForHoldFoodChoosen.textContent = foodChoosen;
   
       let subBoxForHoldFoodAmountChoosen =  document.createElement("p");
-      subBoxForHoldFoodAmountChoosen.textContent = eval(newFoodChoosen).cal *  amountChoosen + "cal";
+      subBoxForHoldFoodAmountChoosen.textContent = Math.floor(eval(newFoodChoosen).cal *  amountChoosen) + "cal";
       subBoxForHoldFoodAmountChoosen.setAttribute = "class" , "piu";
       subBoxForHoldFoodAmountChoosen.style.marginRight = "5px";
      
-     
-
       let boxForHoldFoodIndividualDetails =  document.createElement("div");
       boxForHoldFoodIndividualDetails.style.color = "yellow";
       boxForHoldFoodIndividualDetails.style.textAlign = "center";
       boxForHoldFoodIndividualDetails.style.display = "none";
       boxForHoldFoodIndividualDetails.style.fontSize = "15px";
 
-      let trashIcon =  document.createElement("i");
+    let trashIcon =  document.createElement("i");
     trashIcon.setAttribute("class" , "fa-solid fa-trash-can");
     trashIcon.style.color = "white" ;
     trashIcon.style.fontSize = "10px";
      
-
       let btnToRemoveFoodChoosen = document.createElement("button");
       btnToRemoveFoodChoosen.appendChild(trashIcon);
       
@@ -379,29 +340,27 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
       
       containerForHoldBtns.append(subBoxForHoldFoodAmountChoosen,btnToSeeDetailsOfeachFood,btnToRemoveFoodChoosen);
       
-      let calories =  eval(newFoodChoosen).cal *  amountChoosen;
-      let carboidrates =  eval(newFoodChoosen).carb *  amountChoosen;
-      let proteins =  eval(newFoodChoosen).prot *  amountChoosen;
+      let calories =  Math.floor(eval(newFoodChoosen).cal *  amountChoosen);
+      let carboidrates =  Math.floor(eval(newFoodChoosen).carb *  amountChoosen);
+      let proteins = Math.floor(eval(newFoodChoosen).prot *  amountChoosen) ;
 
-      let object = {};
+      let food = {};
 
-      object.food = foodChoosen;
-      object.calo = calories;
-      object.amou =  amountChoosen;
-      object.carb =  carboidrates;
-      object.prot =  proteins;
+      food.name = foodChoosen;
+      food.calories = calories;
+      food.amount =  amountChoosen;
+      food.carboidrates =  carboidrates;
+      food.proteins =  proteins;
+
+      console.log(food);
 
       boxForHoldFoodIndividualDetails.textContent =  amountChoosen  + " gram , " +  calories  + " Cal , " + carboidrates + "Carb , " + proteins + " Prot  ";
   
 
 
-      let puta = [];
-      puta.push(object);
-      general.push(puta);
-
-      console.log(array);
-
-      
+      let test = [];
+      test.push(food);
+      general.push(test);
 
       totalCalRetrive.totalCal += calories;
       totalCalRetrive.totalCarb += carboidrates;
@@ -417,35 +376,37 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
     
     
       localStorage.setItem("mealDetails" , JSON.stringify(array));
-      console.log(array);
+     
   
 
     subBoxForHoldFoodNameAndAmountChoosen.append(subBoxForHoldFoodChoosen ,containerForHoldBtns);
     mainBox.append(subBoxForHoldFoodNameAndAmountChoosen ,boxForHoldFoodIndividualDetails);
 
     
-     btnToRemoveFoodChoosen.onclick = function() {    // thi functon will
+     btnToRemoveFoodChoosen.onclick = () => RemoveFood(food) ; 
+     
+     
+     
+     
+     
+    function RemoveFood(food) { // This functon will remove a food that the user added  and its calories .
 
-    totalCalRetrive.totalCal-= eval(newFoodChoosen).cal * amountChoosen;
-    totalCalRetrive.totalCarb -= eval(newFoodChoosen).carb * amountChoosen;
-    totalCalRetrive.totalProt-= eval(newFoodChoosen).prot * amountChoosen;
+    totalCalRetrive.totalCal -= food.calories ;
+    totalCalRetrive.totalCarb -= food.carboidrates;
+    totalCalRetrive.totalProt -= food.proteins ;
+
     totalCalCarbProtGord.textContent = "Total: " + totalCalRetrive.totalCal + " cal" + " /" + totalCalRetrive.totalCarb + "carb"  + " /" + totalCalRetrive.totalProt+ "prot"   ;
     mainBox.removeChild(subBoxForHoldFoodNameAndAmountChoosen);
     boxForHoldFoodIndividualDetails.style.display = "none";
 
-    puta.pop(object);
-    console.log(array);
-     
+    test.pop(food);
+
      general =  general.filter(value => JSON.stringify(value) !== "[]");
      
     
     localStorage.setItem("mealDetails" , JSON.stringify(array));
 
-    console.log(array);
-     console.log(general);
-     console.log(puta);
-    
-
+  
   }
 
 
@@ -468,36 +429,26 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
     
 
 
-    function caranga(mainBox,general,index) {
-
-      console.log(general);
-   
+  function caranga(mainBox,general,index) { // this function will remove the mainbox and its foods amd decrease fom the total calories the  caories of the foods that ae inside the mainbox;
+  
     
       general =  general.filter(value => JSON.stringify(value) !== "[]");
+   
+       for (let i = 1 ; i < general.length  ; i++ ) {
   
-    for (let i = 1 ; i < general.length  ; i++ ) {
-  
-
-
-      console.log(general[i][0].calo);
-      
-      totalCalRetrive.totalCal -= general[i][0].calo;
-      totalCalRetrive.totalCarb -= general[i][0].carb;
-      totalCalRetrive.totalProt -= general[i][0].prot;
+      totalCalRetrive.totalCal -= general[i][0].calories;
+      totalCalRetrive.totalCarb -= general[i][0].carboidrates;
+      totalCalRetrive.totalProt -= general[i][0].proteins;
   
     }
   
-      
       mainBox.remove();
       array.splice(index,1);
       localStorage.setItem("mealDetails" , JSON.stringify(array));
-       
-    console.log(array);
   
      totalCalCarbProtGord.textContent = "Total: " + totalCalRetrive.totalCal + " cal" + " /" + totalCalRetrive.totalCarb + "carb"  + " /" + totalCalRetrive.totalProt+ "prot" ;
      totalCalCarbProtGord.style.display = "block";
     
-     
   
     }
  /*   
@@ -519,17 +470,18 @@ function  removeMainBoxAndCals(container,subBoxForHoldFoodNameAndAmountChoosen) 
 
 let data = JSON.parse(localStorage.getItem("mealDetails"));
 
+console.log(data);
 
 data.forEach((item) => {
+  
 
  
   
-  item =  item.filter(value => JSON.stringify(value) !== "[]");
-
   
-  console.log(data);
-  console.log(item);
-  console.log(array);
+  
+
+
+  item =  item.filter(value => JSON.stringify(value) !== "[]");
 
   let subBoxForHoldFoodName = document.createElement("h3");
   subBoxForHoldFoodName.style.color= "yellow";
@@ -587,9 +539,6 @@ data.forEach((item) => {
    
   
     localStorage.setItem("mealDetails" , JSON.stringify(array));
-
-  
-
     
     BtnToRemMainBox.onclick = function () {  // function to remove the main box let caralho = [];
       
@@ -659,28 +608,17 @@ data.forEach((item) => {
 let  inputForUserAddFoodName = "";
 let  inputForUserAddFoodAmount = "";
 
+for (let i = 1 ; i < item.length ; i++) {
 
-for(let i = 1 ; i < item.length ; i++ ) {
-  
-  
+addFood(item[i][0].name,item[i][0].amount,mainBox,general,BtnToRemMainBox,inputForUserAddFoodName,inputForUserAddFoodAmount)
 
-   
-
-  addFood(item[i][0].food,item[i][0].amou,mainBox,general,BtnToRemMainBox,inputForUserAddFoodName,inputForUserAddFoodAmount);  
-
-   console.log(item[i][0].food);
+};
 
   localStorage.setItem("mealDetails" , JSON.stringify(array));
 
-
-  
-}
-
-   
 })
 
   
-
     
 
   
