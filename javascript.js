@@ -1,5 +1,10 @@
 
- function Food(cal, carb, prot, fat) {  // calories , .... , gorduras totais  
+ 
+ 
+ 
+ 
+ 
+function Food(cal, carb, prot, fat) {  // calories , .... , gorduras totais  
 
 this.cal = cal
 this.carb = carb
@@ -15,18 +20,9 @@ let nissimyoi          = new Food(4.549125168236878,0.5787348586810229,0.1036339
 let cuzcuzcoringa      = new Food(3.4,0.76,0.08,0.02);
 
 
-
 let  boxForHoldBtns;
 
-     
-
-  
-  
-
-
-
-
-let foodsArray = [ "arroz" ,"cuzcuz coringa", "leitebom integral" , "leite ccgl" , "arroz painho" , "cuzcuz coringa" , "frango" , "nissim yoi" , "tapioca nossa goma" , "toscana" , "presunto" , "pão francês" , "leite" ];
+let foodsArray = [ "arroz" , "cuzcuz coringa", "leitebom integral" , "leite ccgl" , "arroz painho" , "cuzcuz coringa" , "frango" , "nissim yoi" , "tapioca nossa goma" , "toscana" , "presunto" , "pão francês" , "leite" ];
 
 let totalCalRetrive = { totalCal:0 , totalCarb:0 , totalProt:0  };
 
@@ -36,16 +32,53 @@ let array = [];
 
 let totalCalCarbProtGord = document.querySelector("#totalCalCarbProtGord");
 
-let btnForCreateInputs = document.querySelector("#plusBtn");
 
 let container = document.querySelector("#container");
 
-btnForCreateInputs.onclick = () => CreateInput() ;
+let menuButton = document.querySelector("#menu-button");
+let menu = document.querySelectorAll(".item");
+let mainMenu = document.querySelector("#menu");
 
 
+menuButton.onclick = () => CreateMenu()  ;
+
+function CreateMenu (){ // This function will create a menu with option ( dark mode , add food and etc)
+console.log(menu);
+
+menu[0].style.display = "block" ;
+menu[1].style.display = "block" ;
+menu[2].style.display = "block" ;
+
+mainMenu.style.boxShadow = "4px 4px 8px 8px black";
+
+menuButton.onclick = () => CloseMenu();
+
+};
+
+
+function CloseMenu(){
+
+  mainMenu.style.boxShadow = "";
+menu[0].style.display = "none" ;
+menu[1].style.display = "none" ;
+menu[2].style.display = "none" ;
+
+menuButton.onclick = () => CreateMenu();
+
+};
+
+
+function DarkMode() { // This function will  set  the dark mode  on the webpage
+
+
+};
+
+menu[0].onclick = () => CreateInput();
 
 
 function  CreateInput() { // This function will create an  input for the user a  add meal name .
+
+  CloseMenu()
 
 let inputForUserAddMealName = document.createElement("input");
 inputForUserAddMealName.style.padding = "5px";
@@ -60,16 +93,14 @@ BtnForUserSubInput.style.padding = "5px";
 
 boxForHoldBtns = document.createElement("div");
 boxForHoldBtns.style.display = "grid" ;
-boxForHoldBtns.style.background = "#1b1b1b";
 boxForHoldBtns.style.maxWidth = "500px" ;
 boxForHoldBtns.style.padding = "10px";
 
 boxForHoldBtns.append(inputForUserAddMealName,BtnForUserSubInput);
 container.prepend(boxForHoldBtns);
 
-BtnForUserSubInput.onclick = () => createMainBox(inputForUserAddMealName.value,inputForUserAddMealName,btnForCreateInputs)  ;
-btnForCreateInputs.textContent = "-" ;
-btnForCreateInputs.onclick = () => CloseInput() ;
+BtnForUserSubInput.onclick = () => createMainBox(inputForUserAddMealName.value,inputForUserAddMealName,menuButton)  ;
+menu.style.display = "none" ;
 
 
 };
@@ -77,7 +108,7 @@ btnForCreateInputs.onclick = () => CloseInput() ;
 
 function  CloseInput() { // This function will close the input for the user add the meal name . 
 
-boxForHoldBtns.remove();
+menuButton.remove();
 btnForCreateInputs.textContent = "+" ;
 btnForCreateInputs.onclick = () => CreateInput()
 
@@ -103,7 +134,6 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
     plusIcon.style.color = "yellow" ;
     plusIcon.style.fontSize = "15px";
     
-    
     let BtnToAddFoodName = document.createElement("button");
     BtnToAddFoodName.appendChild(plusIcon);
     BtnToAddFoodName.style.color ="yellow";
@@ -117,7 +147,7 @@ function createMainBox(mealChoosen,inputForUserAddMealName) { // This function w
     let BtnToRemMainBox = document.createElement("button");
     BtnToRemMainBox.appendChild(trashIcon);
     BtnToRemMainBox.setAttribute("class" , "BtnToRemMainBox");
-     BtnToRemMainBox.style.color = "yellow";
+    BtnToRemMainBox.style.color = "yellow";
 
     let boxForHoldsubBoxForHoldFoodNameAndBtns = document.createElement("span");
     boxForHoldsubBoxForHoldFoodNameAndBtns.append(BtnToAddFoodName,BtnToRemMainBox);
@@ -451,34 +481,10 @@ function addFood(foodChoosen,amountChoosen ,mainBox,general,BtnToRemMainBox,inpu
     
   
     }
- /*   
-  
-
-function  removeMainBoxAndCals(container,subBoxForHoldFoodNameAndAmountChoosen) { 
-
-  let cal = mainBox.querySelectorAll(".calories");
-  let car = mainBox.querySelectorAll(".carboidrates");
-  let pro = mainBox.querySelectorAll(".proteins");
-  let gor = mainBox.querySelectorAll(".gorduras");
- 
-  
-}
-
-
-
-*/
 
 let data = JSON.parse(localStorage.getItem("mealDetails"));
 
-console.log(data);
-
 data.forEach((item) => {
-  
-
- 
-  
-  
-  
 
 
   item =  item.filter(value => JSON.stringify(value) !== "[]");

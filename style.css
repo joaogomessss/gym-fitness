@@ -5,19 +5,49 @@
    
    }
 
+
    body {  
 
-      background-color:#1b1b1b;
+      background-color: #242424;
  
  }
 
- 
+ nav { 
+      display:flex;
+      background-color: #5e5e5e; 
+      justify-content:  space-between;
+      height:55px;   
+}
 
 
+ #menu{
 
- 
+  color:white;
+  font-size:large;
+  padding: 9px;
+  background-color: white; 
+  border-radius: 5px;
+  height: fit-content;
+  background-color: #5e5e5e; 
+  
 
- 
+ }  
+
+#menu-button {
+color:yellow;
+text-align:right;
+font-size:xx-large;
+font-weight: bolder;
+
+ }
+
+ .item {
+
+display:none;
+
+
+ };
+
 input  { 
 
       color:white;
@@ -45,23 +75,16 @@ h1 {
 
   background-color: #5e5e5e;  
   color:yellow;
-  font-size:xx-large;
+  font-size:x-large;
   padding:9px;
+  
 
 }
 
-#plusBtn { 
 
-        color:yellow;
-        background-color:#5e5e5e;
-        font-size: 40px;
-        height:50px;
-        width:50px ;
-        border-radius: 100%;
-        border-style:none;
+         
 
-
-}
+ 
 
 #totalCalCarbProtGord {  
 
@@ -76,13 +99,6 @@ h1 {
 
 }
 
-nav { 
-      display:flex;
-      background-color: #5e5e5e; 
-      justify-content:  space-between;
-
-
-}
 
 #container {
             padding: 5px;
