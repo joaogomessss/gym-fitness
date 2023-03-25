@@ -43,7 +43,7 @@ let mainMenu = document.querySelector("#menu");
 menuButton.onclick = () => CreateMenu()  ;
 
 function CreateMenu (){ // This function will create a menu with option ( dark mode , add food and etc)
-console.log(menu);
+
 
 menu[0].style.display = "block" ;
 menu[1].style.display = "block" ;
@@ -90,19 +90,28 @@ BtnForUserSubInput.textContent = "adicionar" ;
 BtnForUserSubInput.style.background = "#5e5e5e" ;
 BtnForUserSubInput.style.color = "white";
 BtnForUserSubInput.style.padding = "5px";
+BtnForUserSubInput.style.marginBottom = "8px";
+
+let closeButton = document.createElement("button");
+closeButton.textContent = "fechar" ;
+closeButton.style.background = "#5e5e5e" ;
+closeButton.style.color = "white";
+closeButton.style.padding = "5px";
 
 boxForHoldBtns = document.createElement("div");
 boxForHoldBtns.style.display = "grid" ;
 boxForHoldBtns.style.maxWidth = "500px" ;
 boxForHoldBtns.style.padding = "10px";
 
-boxForHoldBtns.append(inputForUserAddMealName,BtnForUserSubInput);
+boxForHoldBtns.append(inputForUserAddMealName,BtnForUserSubInput,closeButton);
 container.prepend(boxForHoldBtns);
 
 BtnForUserSubInput.onclick = () => createMainBox(inputForUserAddMealName.value,inputForUserAddMealName,menuButton)  ;
-menu.style.display = "none" ;
 
 
+menu[0].onclick = console.log();
+
+closeButton.onclick = () => test(boxForHoldBtns,menu[0]); 
 };
 
 
@@ -114,7 +123,15 @@ btnForCreateInputs.onclick = () => CreateInput()
 
 };
 
+function test(boxForHoldBtns,btn) {
 
+
+boxForHoldBtns.remove();
+btn.onclick = () => CreateInput();;
+
+
+
+};
 
 
 
