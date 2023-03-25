@@ -1,9 +1,25 @@
 
  
+
+
+
+ self.addEventListener('push', function(event) {
+  console.log('[Service Worker] Push Received:', event);
+  const title = 'Push Notification';
+  const options = {
+  body: 'This is a push notification!',
+  icon: 'path/to/icon.png'
+  };
+  event.waitUntil(self.registration.showNotification(title, options));
+  });
+  self.addEventListener('notificationclick', function(event) {
+  console.log('[Service Worker] Notification click Received.');
+  event.notification.close();
+  event.waitUntil(clients.openWindow('https://www.example.com'));
+  });
  
- 
- 
- 
+
+ /*
 function Food(cal, carb, prot, fat) {  // calories , .... , gorduras totais  
 
 this.cal = cal
@@ -399,11 +415,7 @@ function addFood(foodChoosen,amountChoosen ,mainBox,general,BtnToRemMainBox,inpu
       food.carboidrates =  carboidrates;
       food.proteins =  proteins;
 
-      console.log(food);
-
       boxForHoldFoodIndividualDetails.textContent =  amountChoosen  + " gram , " +  calories  + " Cal , " + carboidrates + "Carb , " + proteins + " Prot  ";
-  
-
 
       let test = [];
       test.push(food);
@@ -641,7 +653,7 @@ addFood(item[i][0].name,item[i][0].amount,mainBox,general,BtnToRemMainBox,inputF
 
 })
 
-  
+  */
     
 
   

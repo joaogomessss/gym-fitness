@@ -41,6 +41,7 @@ color:yellow;
 text-align:right;
 font-size:x-large;
 font-weight: bolder;
+margin-bottom:5px;
 
  }
 
@@ -129,6 +130,7 @@ ul.ui-autocomplete {
 
   
   max-width:150px;
+  padding:3px;
   
   background-color:white;
 
