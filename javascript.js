@@ -41,7 +41,7 @@ let mainMenu = document.querySelector("#menu");
 
 menuButton.onclick = () => CreateMenu()  ;
 
-function CreateMenu (){ // This function will create a menu with option ( dark mode , add food and etc)
+function CreateMenu (){ // Thi function will create a menu with option ( dark mode , add food and etc)
 
 
 menu[0].style.display = "block" ;
