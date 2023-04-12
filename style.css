@@ -8,80 +8,170 @@
    }
 
 
-   body {  
-
-      background-color: #242424;
- 
- }
-
- nav { 
-      display:flex;
-      background-color: #5e5e5e; 
-      justify-content:  space-between;
-      height:55px;   
-}
+   .mainbox1{
+      
+      color:yellow;
+      margin-bottom:15px;
+      margin-top:15px;
+      border-radius:10px;
+      padding:5px;
+      background-color:#5e5e5e;
+      max-width:500px;
+   }
 
 
- #menu{
+   .dark-box {
+      
+      color:black;
+      background-color: white;
+      box-shadow: 10px 10px 30px black;
 
-  color:white;
-  font-size:large;
-  padding: 9px;
-  background-color: white; 
-  border-radius: 5px;
-  height: fit-content;
-  background-color: #5e5e5e; 
-  
 
- }  
+   }
 
-#menu-button {
-color:yellow;
-text-align:right;
-font-size:xx-large;
-font-weight: bolder;
 
- }
+
+   
+
+     
+
+  .dark-menu {
+
+   color:white;
+   font-size:large;
+   padding: 9px;
+   background-color: blue; 
+   border-radius: 5px;
+   height: fit-content;
+   position:relative;
+
+
+  }
+
 
  .item {
 
-display:none;
+      display:none;
+      
+      
+       }
 
 
- };
+   body {  
 
-input  { 
+      background-color: black;
+ 
+ }
 
-      color:white;
+ .dark-mode {
+
+      background-color:rgb(249, 241, 241);
+      
+      
+      }
+
+
+      
+
+
+ nav { 
+
+      display:flex;
+      color:yellow;
+      background-color: #5e5e5e;
+      justify-content:  space-between;
+      height:50px;
+      
+}
+
+.light-nav { 
+
+   display:flex;
+   color:white;
+   background-color: blue;
+   justify-content:  space-between;
+   height:50px;
+   
+}
+
+
+
+
+
+.menu{
+
+   padding: 10px;
+   height:fit-content;
+   position:relative;
+   font-size:large;
+   background-color: #5e5e5e;
+   
+  }
+
+  .light-menu{
+
+   padding: 10px;
+   height:fit-content;
+   position:relative;
+   font-size:large;
+   background-color: blue;
+   
+  }
+
+
+
+  #menu-button {
+
+   text-align:right;
+   font-size:x-large;
+
+
+  }
+
+
+
+ input  { 
+
+      color:black;
       border-style: none;
       padding: 5px;
       border-radius: 10px;
-      background-color: #777777 ; 
+      background-color: white ; 
 
 }
+
 
 button {   
 
     background-color: #5e5e5e; 
     color:white;
     font-size: 19px;
-    border-radius: 10px;
-    
     border-style:none;
+    margin-bottom:7px;
+    border-radius:5px;
+
 }
 
+h1 {
 
+   display:flex;
+   align-items:center;
+   margin-left:10px;
 
+}
+
+/*
 
 h1 {
 
   background-color: #5e5e5e;  
-  color:yellow;
+ background-color:blue;
+  color:white;
   font-size:x-large;
   padding:9px;
   
 
-}
+} */
 
 
          
@@ -136,3 +226,13 @@ ul.ui-autocomplete {
   background-color:white;
 
 };
+
+
+.btn-sun-input {
+
+   background-color:#5e5e5e ;
+   color:white;
+   padding:5px;
+   margin-bottom:8px;
+
+}
