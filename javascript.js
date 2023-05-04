@@ -8,95 +8,103 @@ this.fat = fat
 
 };
 
+
+let retrieve = JSON.parse(localStorage.getItem("mealDetails"));
+
+
+
 let leiteccgl          = new Food(4.923076923076923,0.38461538461538464,0.26153846153846155,0.26153846153846155) ;            
 let nissimyoi          = new Food(4.549125168236878,0.5787348586810229,0.10363391655450875,0.2018842530282638) ;
 let cuzcuzcoringa      = new Food(3.4,0.76,0.08,0.02);
+let paodeforma         = new Food(3.4,0.76,0.08,0.02);
+let mucilondemilho     = new Food (3.6666666666666665,0.8571428571428571,0.06190476190476191,0);
 
 let  boxForHoldBtns;
-
 let darkModeStatus;
-
-let foodsArray = [ "arroz" , "cuzcuz coringa", "leitebom integral" , "leite ccgl" , "arroz painho" , "cuzcuz coringa" , "frango" , "nissim yoi" , "tapioca nossa goma" , "toscana" , "presunto" , "pão francês" , "leite" ];
-
-let totalCalRetrive = { totalCal:0 , totalCarb:0 , totalProt:0  };
-
+let foodsArray = ["mucilon de milho","arroz" , "cuzcuz coringa", "leitebom integral" , "leite ccgl" , "arroz painho" , "cuzcuz coringa" , "frango" , "nissim yoi" , "tapioca nossa goma" , "toscana" , "presunto" , "pão francês" , "leite" ];
 let result;
-
-let array = [];
-
-let totalCalCarbProtGord = document.querySelector("#totalCalCarbProtGord");
+let database = [];
 
 
-let container  = document.querySelector("#container");
+let totalCalories = { totalCal:0 , totalCarb:0 , totalProt:0 };
+
+let totalCalCarbProtGord = document.createElement("p");
+totalCalCarbProtGord.setAttribute("id" , "totalCalCarbProtGord" );
+
+let container  = document.querySelector(".container");
 let menuButton = document.querySelector("#menu-button");
-let menu       = document.querySelectorAll(".item");
-let mainMenu   = document.querySelector("#menu");
+let menuItem  = document.querySelectorAll(".item");
+let  menu = document.querySelector("#menu");
+let  body = document.querySelector("body");
 
-menuButton.onclick = () =>CreateMenu()  ;
 
-function CreateMenu(){ // Thi function will create a menu with option ( dark mode , add food and etc)
+menuButton.onclick = () => CreateMenu();  ;
 
-menu[0].style.display = "block" ;
-menu[1].style.display = "block" ;
-menu[2].style.display = "block" ;
+function CreateMenu(){ // This function will create a menu  some  options like ( dark mode , add food and etc)
 
-mainMenu.style.boxShadow = "4px 4px 8px 8px black";
+menuItem[0].style.display = "block" ;
+menuItem[1].style.display = "block" ;
+menuItem[2].style.display = "block" ;
+
+menu.style.boxShadow = "4px 4px 8px 8px black";
 
 menuButton.onclick = () => CloseMenu();
 
 };
 
-menu[1].onclick = () => darkMode();
+menuItem[0].onclick = () => CreateInput();
+menuItem[1].onclick = () => darkMode();
 
 
-function CloseMenu(){
+function CloseMenu(){ // This function will close the menu
 
-mainMenu.style.boxShadow = "";
-menu[0].style.display = "none" ;
-menu[1].style.display = "none" ;
-menu[2].style.display = "none" ;
-
+menu.style.boxShadow = "";
+menuItem[0].style.display = "none" ; menuItem[1].style.display = "none" ; menuItem[2].style.display = "none" ;
 menuButton.onclick = () => CreateMenu();
+  
 
 };
 
 
 
-menu[0].onclick = () => CreateInput();
+function  CreateInput() { // This function will create an  input for the user a  add meal name , and two button for add the mealname and close the input
 
+CloseMenu()
 
-function  CreateInput() { // This function will create an  input for the user a  add meal name .
+let  mealNameinput = document.createElement("input");
 
-  CloseMenu()
-
-let inputForUserAddMealName = document.createElement("input");
-inputForUserAddMealName.style.padding = "5px";
-inputForUserAddMealName.style.maxWidth = "500px"
-inputForUserAddMealName.style.marginBottom = "10px";
-
-let BtnForUserSubInput = document.createElement("button");
-BtnForUserSubInput.textContent = "adicionar" ;
-BtnForUserSubInput.setAttribute("class" , "btn-sub-input");
+let addButton = document.createElement("button");
+addButton.textContent = "adicionar" ;
+addButton.setAttribute("class" , "btn-sub-input");
 
 let closeButton = document.createElement("button");
 closeButton.textContent = "fechar" ;
-BtnForUserSubInput.setAttribute("class" , "btn-sub-input");
+closeButton.setAttribute("class" , "btn-sub-input");
 
-boxForHoldBtns = document.createElement("div");
-boxForHoldBtns.style.display = "grid" ;
-boxForHoldBtns.style.maxWidth = "500px" ;
-boxForHoldBtns.style.padding = "10px";
+let mealForm = document.createElement("div");   
+mealForm.setAttribute("class" , "mealForm");   
+mealForm.append(mealNameinput,addButton ,closeButton);
 
-boxForHoldBtns.append(inputForUserAddMealName,BtnForUserSubInput,closeButton);
-container.prepend(boxForHoldBtns);
+container.prepend(mealForm);
 
-BtnForUserSubInput.onclick = () => createMainBox(inputForUserAddMealName.value,inputForUserAddMealName,menuButton)  ;
+addButton.onclick = () => createMainBox(mealNameinput.value);
+menuItem[0].onclick = console.log();
+closeButton.onclick = () => closeForm(mealForm); 
 
+addButton.addEventListener("click" , function(){ mealNameinput.value = "" })
 
-menu[0].onclick = console.log();
-
-closeButton.onclick = () => test(boxForHoldBtns,menu[0]); 
 };
+
+
+
+function closeForm(mealForm){
+
+  mealForm.remove();
+
+
+};
+
+
 
 
 function  CloseInput() { // This function will close the input for the user add the meal name . 
@@ -107,162 +115,172 @@ btnForCreateInputs.onclick = () => CreateInput()
 
 };
 
-function test(boxForHoldBtns,btn) {
 
 
-boxForHoldBtns.remove();
-btn.onclick = () => CreateInput();;
+function createMainBox(mealChoosen,item) { // This function will create a container to add the meal and all its foods  
+  menuItem[0].onclick = () => CreateInput();
 
+    
 
+    let mealName = document.createElement("h3");
+    mealName.textContent =  mealChoosen; 
 
-};
-
-
-
-
-
-
-function createMainBox(mealChoosen,inputForUserAddMealName) { // This function will create a container to add the meal and all its foods  
-  
-    if (inputForUserAddMealName.value != "") {
-
-    let subBoxForHoldFoodName = document.createElement("h3");
-    subBoxForHoldFoodName.textContent = mealChoosen;
-
-    let plusIcon =  document.createElement("i");
+    let plusIcon = document.createElement("i"); 
     plusIcon.setAttribute("class" , "fa-solid fa-plus");
     plusIcon.style.color = "yellow" ;
     plusIcon.style.fontSize = "15px";
     
-    let BtnToAddFoodName = document.createElement("button");
-    /*BtnToAddFoodName.appendChild(plusIcon);*/
-    BtnToAddFoodName.textContent = "+" ;
-    BtnToAddFoodName.style.color ="yellow";
-    BtnToAddFoodName.style.marginRight = "5px"; 
+    let plusIconButton = document.createElement("button")
+    plusIconButton.textContent = "+" ; 
+    plusIconButton.style.marginRight = "5px"; 
 
-    let trashIcon =  document.createElement("i");
+    let trashIcon = document.createElement("i");
     trashIcon.setAttribute("class" , "fa-solid fa-trash-can");
-    trashIcon.style.color = "yellow" ;
+    trashIcon.style.color = "yellow";
     trashIcon.style.fontSize = "15px";
 
-    let BtnToRemMainBox = document.createElement("button");
-    /*BtnToRemMainBox.appendChild(trashIcon);*/
-    BtnToRemMainBox.textContent = "xx" ;
-    BtnToRemMainBox.setAttribute("class" , "BtnToRemMainBox");
-    BtnToRemMainBox.style.color = "yellow";
+    let trashIconButton = document.createElement("button");
+    trashIconButton.textContent = "xx" ;
 
-    let boxForHoldsubBoxForHoldFoodNameAndBtns = document.createElement("span");
-    boxForHoldsubBoxForHoldFoodNameAndBtns.append(BtnToAddFoodName,BtnToRemMainBox);
-    boxForHoldsubBoxForHoldFoodNameAndBtns.style.display = "inline";
+    let buttonsBox = document.createElement("div");
+    buttonsBox.append(plusIconButton,trashIconButton);
+    buttonsBox.style.display = "inline";
 
-    let allDiv = document.createElement("span");
-    allDiv.style.marginBottom = "5px";
-    allDiv.style.display = "flex";
-    allDiv.style.justifyContent = "space-between";
-    allDiv.setAttribute("class" , "real");
+    let mealNameButtonsBoxContainer =  document.createElement("div");
+    mealNameButtonsBoxContainer.append(mealName,buttonsBox);
+    mealNameButtonsBoxContainer.setAttribute("class" , "mealNameButtonsBoxContainer");
+
+
+    let mealContainer = document.createElement("div");
+    mealContainer.setAttribute("class" , "real");
+    mealContainer.append(mealNameButtonsBoxContainer);
+
+    container.appendChild(mealContainer);
+
     
-    allDiv.append(subBoxForHoldFoodName,boxForHoldsubBoxForHoldFoodNameAndBtns);
+    let mealArray = [];
+    mealArray.push(mealChoosen)
+    database.push(mealArray);
 
-    let mainBox = document.createElement("div");
-    mainBox.setAttribute("class" , "mainbox1");
-    mainBox.appendChild(allDiv);
-  
-    container.appendChild(mainBox);
-   
+    console.log(database);
+
+
+    localStorage.setItem("mealDetails" , JSON.stringify(database));
     
 
-    let general = [] ;
-    general.push(mealChoosen);
-    array.push(general);
-
-    localStorage.setItem("mealDetails" , JSON.stringify(array));
-
-    inputForUserAddMealName.value = "" ;
+    trashIconButton.onclick = () => RemoveBox(mealArray,mealContainer);
+    plusIconButton.onclick = () => CreateFoodForm(mealArray,mealContainer,mealNameButtonsBoxContainer);
 
 
 
 
-  
-    BtnToRemMainBox.onclick = () => RemoveBox();
+
+
+
+ if(retrieve != 0 ) { //This function will retrieve the date of the foods when the user load the page 
+
+  for (let i = 1; i < item.length ; i++ ) {
+
+
+     addFood(item[i].name,item[i].amount,mealArray,mealContainer); 
     
-    
-    
-    function RemoveBox() {  // function to remove the main box that holds the meal name and its foods ;
+  }}
+             
+              
+  }
+
+      function RemoveBox(mealArray,mealContainer) {  // function to remove the main box that holds the meal name and its foods ;
       
-      general.shift();  
-      mainBox.remove();
+        let MealArrayIndexNumber = database.indexOf(mealArray);
 
-      array =  array.filter(value => JSON.stringify(value) !== "[]");
+        console.log(mealArray);
+        console.log(mealArray[1]);
 
-      localStorage.setItem("mealDetails" , JSON.stringify(array));
+        database.splice(MealArrayIndexNumber , 1);
+
+        console.log(database);
+
+        mealContainer.remove();
+
+      localStorage.setItem("mealDetails" , JSON.stringify(database));
+
+
+        for (let i = 1; i < mealArray.length ; i++) {
+
+          console.log(mealArray[i].calories) 
+      
+         totalCalories.totalCal -= mealArray[i].calories ;
+          totalCalories.totalCarb -= mealArray[i].carboidrates;
+          totalCalories.totalProt -= mealArray[i].proteins ; 
+         
+      
+        }
+      
+        totalCalCarbProtGord.textContent = "Total : " + "Cal " + totalCalories.totalCal  + " /  Carb " + totalCalories.totalCarb  + " /  Prot " + totalCalories.totalProt;
+        
+          
+
     };
+
+    function  CreateFoodForm(mealArray,mealContainer,mealNameButtonsBoxContainer) { // This function will create two inputs to the user put the food name and the amount in grams 
     
+      let foodNameInput  = document.createElement("input");
+      foodNameInput.setAttribute("class" ,"united");
+      
+      let amountFoodInput =  document.createElement("input");
+      amountFoodInput.setAttribute("class" ,"united");
+      
+      let addButton = document.createElement("button");
+      addButton.style.marginBottom = "10px";
+      addButton.textContent = "adicionar";
   
-
-    BtnToAddFoodName.onclick = function() { // This function will create two inputs to the user put the food name and the amount in grams 
-    
-    let inputForUserAddFoodName  = document.createElement("input");
-    inputForUserAddFoodName.style.marginBottom = "10px";
-    inputForUserAddFoodName.setAttribute("class" ,"foods");
-    inputForUserAddFoodName.type = "text";
-    inputForUserAddFoodName.id = "united";
-    
-    let inputForUserAddFoodAmount =  document.createElement("input");
-    inputForUserAddFoodAmount.style.marginBottom = "10px";
-    inputForUserAddFoodAmount.setAttribute("class" ,"foods");
-    
-    let btnForUserSubFoodNameAndAmount = document.createElement("button");
-    btnForUserSubFoodNameAndAmount.style.marginBottom = "10px";
-    btnForUserSubFoodNameAndAmount.textContent = "adicionar";
-
-    let btnForUserCloseInputs = document.createElement("button");
-    btnForUserCloseInputs .style.marginBottom = "10px";
-    btnForUserCloseInputs .textContent = "fechar";
-
-    BtnToAddFoodName.disabled = true;
-
-    btnForUserCloseInputs.onclick = function(){
-    mainBox.removeChild(boxForHoldBtnsAndAddBtn)
-    BtnToAddFoodName.disabled = false;
+      let closeButton = document.createElement("button");
+      closeButton.style.marginBottom = "10px";
+      closeButton.textContent = "fechar";
+  
+      let buttonsBox =  document.createElement("div");
+      buttonsBox.append(addButton,closeButton);
+      buttonsBox.style.display = "flex" ;
+      buttonsBox.style.justifyContent = "space-evenly"
+      
+   
+      let foodForm = document.createElement("div");
+      foodForm.append(foodNameInput,amountFoodInput,buttonsBox);
+      foodForm.setAttribute("class" , "foodForm");
+  
+      foodForm.append(foodNameInput,amountFoodInput,buttonsBox);
+  
+      mealNameButtonsBoxContainer.after(foodForm);
+  
+      closeButton.onclick = function(){
+        
+      foodForm.remove();
+  
+      addButton.disabled = false;
+  
+      }
+  
+      
+      $(".united").autocomplete({
+  
+        source : foodsArray 
+  
+      });
+  
+      addButton.addEventListener("click" , function(){ 
+  
+        addFood(foodNameInput.value,amountFoodInput.value,mealArray,mealContainer);
+        foodNameInput.value = "" ;
+        amountFoodInput.value = "" ;
+  
+      })
+       
+  
+      
     }
 
-    let xxx = document.createElement("div");
-    xxx.append(btnForUserSubFoodNameAndAmount,btnForUserCloseInputs);
-    xxx.style.display = "flex"
-    xxx.style.justifyContent = "space-evenly"
 
-
-   
-    let boxForHoldBtnsAndAddBtn = document.createElement("div");
-    boxForHoldBtnsAndAddBtn.style.display = "grid";
-    boxForHoldBtnsAndAddBtn.style.padding = "10px";
-
-    boxForHoldBtnsAndAddBtn.append(inputForUserAddFoodName,inputForUserAddFoodAmount,xxx );
-    mainBox.appendChild(boxForHoldBtnsAndAddBtn);
-
-    $("#united").autocomplete({
-
-      source : foodsArray 
-
-    });
-
-   
-    btnForUserSubFoodNameAndAmount.onclick  = () => addFood(inputForUserAddFoodName.value, inputForUserAddFoodAmount.value ,mainBox,general,BtnToRemMainBox,inputForUserAddFoodName,inputForUserAddFoodAmount)
-   
-    }
-
-  } else {  
-    
-    alert(" adicione o nome de uma refeição (almoço , lanche e etc ..." );
-
-  
-
-}
- 
-}
-    
-
-function addFood(foodChoosen,amountChoosen ,mainBox,general,BtnToRemMainBox,inputForUserAddFoodName,inputForUserAddFoodAmount) { 
+    function addFood(foodChoosen,amountChoosen,mealArray,mealContainer) { 
      
       foodChoosen.toLowerCase();
       
@@ -277,44 +295,32 @@ function addFood(foodChoosen,amountChoosen ,mainBox,general,BtnToRemMainBox,inpu
    
       result = true ;
 
-    } 
+      }
 
   }
+
+
   
-
-
   if (result == true ) {
       
-  
-      inputForUserAddFoodName.value = "" ;
-      inputForUserAddFoodAmount.value = "" ;
 
-      let subBoxForHoldFoodNameAndAmountChoosen =  document.createElement("div");
-      subBoxForHoldFoodNameAndAmountChoosen.style.display = "flex";
-      subBoxForHoldFoodNameAndAmountChoosen.style.color = "white";
-      subBoxForHoldFoodNameAndAmountChoosen.style.justifyContent = "space-between";
-  
-      let subBoxForHoldFoodChoosen  =  document.createElement("p");
-      subBoxForHoldFoodChoosen.textContent = foodChoosen;
-  
-      let subBoxForHoldFoodAmountChoosen =  document.createElement("p");
-      subBoxForHoldFoodAmountChoosen.textContent = Math.floor(eval(newFoodChoosen).cal *  amountChoosen) + "cal";
-      subBoxForHoldFoodAmountChoosen.setAttribute = "class" , "piu";
-      subBoxForHoldFoodAmountChoosen.style.marginRight = "5px";
-     
-      let boxForHoldFoodIndividualDetails =  document.createElement("div");
-      boxForHoldFoodIndividualDetails.style.color = "yellow";
-      boxForHoldFoodIndividualDetails.style.textAlign = "center";
-      boxForHoldFoodIndividualDetails.style.display = "none";
-      boxForHoldFoodIndividualDetails.style.fontSize = "15px";
+    let foodName = document.createElement("p");
+    foodName.textContent = foodChoosen;
+      
+    let foodCalories  =  document.createElement("p");
+    foodCalories.textContent = Math.floor(eval(newFoodChoosen).cal *  amountChoosen) + "cal";
+    foodCalories.style.marginRight = "5px";
+      
+    let foodNutritionalDetails  = document.createElement("p");
 
     let trashIcon =  document.createElement("i");
     trashIcon.setAttribute("class" , "fa-solid fa-trash-can");
     trashIcon.style.color = "white" ;
     trashIcon.style.fontSize = "10px";
-     
-      let btnToRemoveFoodChoosen = document.createElement("button");
-      btnToRemoveFoodChoosen.appendChild(trashIcon);
+
+    let trashIconButton = document.createElement("button")
+    trashIconButton.textContent = "xx";
+
       
       let anglesDownIcon =  document.createElement("i");
       anglesDownIcon.setAttribute("class" , "fa-solid fa-eye");
@@ -322,46 +328,35 @@ function addFood(foodChoosen,amountChoosen ,mainBox,general,BtnToRemMainBox,inpu
       anglesDownIcon.style.fontSize = "10px";
       anglesDownIcon.style.marginRight = "5px";
 
-      
-  
-      let btnToSeeDetailsOfeachFood = document.createElement("button")
-      btnToSeeDetailsOfeachFood.appendChild(anglesDownIcon);
-    
+      let anglesDownIconButton= document.createElement("button")
+      anglesDownIconButton.textContent = "^";
 
-    
-      
-      btnToSeeDetailsOfeachFood.onclick = function() {
-    
+      let buttonsBox =  document.createElement("div");
+      buttonsBox.style.display = "flex";
+      buttonsBox.style.alignItems = "center";
+      buttonsBox.append(foodCalories,trashIconButton,anglesDownIconButton);
 
-        if (boxForHoldFoodIndividualDetails.style.display == "none" ) {
+      let foodNameButtonsBoxContainer = document.createElement("div");
+      foodNameButtonsBoxContainer.append(foodName,buttonsBox);
+      foodNameButtonsBoxContainer.setAttribute("class" , "foodNameButtonsBoxContainer");
 
-          boxForHoldFoodIndividualDetails.style.display = "block"
-
-        } else {
-
-          boxForHoldFoodIndividualDetails.style.display = "none";
-
-        }
+      mealContainer.append(foodNameButtonsBoxContainer);
 
 
-
-      };
-
-
-
-    
-
-      
-
-      let containerForHoldBtns =  document.createElement("span");
-      containerForHoldBtns.style.display = "flex";
-      containerForHoldBtns.style.alignItems = "center";
-      
-      containerForHoldBtns.append(subBoxForHoldFoodAmountChoosen,btnToSeeDetailsOfeachFood,btnToRemoveFoodChoosen);
-      
       let calories =  Math.floor(eval(newFoodChoosen).cal *  amountChoosen);
       let carboidrates =  Math.floor(eval(newFoodChoosen).carb *  amountChoosen);
       let proteins = Math.floor(eval(newFoodChoosen).prot *  amountChoosen) ;
+
+      totalCalories.totalCal += calories ;
+      totalCalories.totalCarb += carboidrates ;
+      totalCalories.totalProt += proteins ;
+
+      console.log(totalCalories);
+
+      totalCalCarbProtGord.textContent = "Total : " + "Cal " + totalCalories.totalCal  + " /  Carb " + totalCalories.totalCarb  + " /  Prot " + totalCalories.totalProt;
+      body.appendChild(totalCalCarbProtGord);
+      
+
 
       let food = {};
 
@@ -371,292 +366,131 @@ function addFood(foodChoosen,amountChoosen ,mainBox,general,BtnToRemMainBox,inpu
       food.carboidrates =  carboidrates;
       food.proteins =  proteins;
 
-      boxForHoldFoodIndividualDetails.textContent =  amountChoosen  + " gram , " +  calories  + " Cal , " + carboidrates + "Carb , " + proteins + " Prot  ";
+      mealArray.push(food);
+      
+      console.log(database);
 
-      let test = [];
-      test.push(food);
-      general.push(test);
+     trashIconButton.onclick = () => RemoveFood(food,foodNameButtonsBoxContainer,mealArray);
 
-      totalCalRetrive.totalCal += calories;
-      totalCalRetrive.totalCarb += carboidrates;
-      totalCalRetrive.totalProt += proteins;
-
-      totalCalCarbProtGord.style.display = "block";
-      totalCalCarbProtGord.style.background = "#5e5e5e" ;
-  
-
-     
-
-      totalCalCarbProtGord.textContent = "Total: " + totalCalRetrive.totalCal  + " Cal , " +  totalCalRetrive.totalCarb + "Carb , " +  totalCalRetrive.totalProt+ " Prot ";
-    
-    
-      localStorage.setItem("mealDetails" , JSON.stringify(array));
-     
-  
-
-    subBoxForHoldFoodNameAndAmountChoosen.append(subBoxForHoldFoodChoosen ,containerForHoldBtns);
-    mainBox.append(subBoxForHoldFoodNameAndAmountChoosen ,boxForHoldFoodIndividualDetails);
-
-    
-     btnToRemoveFoodChoosen.onclick = () => RemoveFood(food) ; 
-     
-     
-     
-     
-     
-    function RemoveFood(food) { // This functon will remove a food that the user added  and its calories .
-
-    totalCalRetrive.totalCal -= food.calories ;
-    totalCalRetrive.totalCarb -= food.carboidrates;
-    totalCalRetrive.totalProt -= food.proteins ;
-
-    totalCalCarbProtGord.textContent = "Total: " + totalCalRetrive.totalCal + " cal" + " /" + totalCalRetrive.totalCarb + "carb"  + " /" + totalCalRetrive.totalProt+ "prot"   ;
-    mainBox.removeChild(subBoxForHoldFoodNameAndAmountChoosen);
-    boxForHoldFoodIndividualDetails.style.display = "none";
-
-    test.pop(food);
-
-     general =  general.filter(value => JSON.stringify(value) !== "[]");
-     
-    
-    localStorage.setItem("mealDetails" , JSON.stringify(array));
-
-  
+     localStorage.setItem("mealDetails" , JSON.stringify(database));
+      
   }
 
-
-  BtnToRemMainBox.onclick = () => caranga(mainBox,general,array.indexOf(general));
   
+}
    
+    
   
-    } else { 
-
-    
-      alert(" No momento não temos essa comida , mas vamos adicionar em breve ")
-
-
-    }
-    
-    result = false;
-
-
-    }
-    
-
-
-  function caranga(mainBox,general,index) { // this function will remove the mainbox and its foods amd decrease fom the total calories the  caories of the foods that ae inside the mainbox;
   
+
     
-      general =  general.filter(value => JSON.stringify(value) !== "[]");
+
    
-       for (let i = 1 ; i < general.length  ; i++ ) {
-  
-      totalCalRetrive.totalCal -= general[i][0].calories;
-      totalCalRetrive.totalCarb -= general[i][0].carboidrates;
-      totalCalRetrive.totalProt -= general[i][0].proteins;
-  
-    }
-  
-      mainBox.remove();
-      array.splice(index,1);
-      localStorage.setItem("mealDetails" , JSON.stringify(array));
-  
-     totalCalCarbProtGord.textContent = "Total: " + totalCalRetrive.totalCal + " cal" + " /" + totalCalRetrive.totalCarb + "carb"  + " /" + totalCalRetrive.totalProt+ "prot" ;
-     totalCalCarbProtGord.style.display = "block";
     
-  
-    }
 
+
+
+function RemoveFood(food,foodNameButtonsBoxContainer,mealArray) { // This functon will remove a food that the user added  and its calories .
+
+  totalCalories.totalCal -= food.calories ;
+  totalCalories.totalCarb -= food.carboidrates;
+  totalCalories.totalProt -= food.proteins ;
+
+
+  let foodIndexNumber = mealArray.indexOf(food);
+
+  mealArray.splice(foodIndexNumber , 1);
+
+  console.log(foodIndexNumber);
+  
+  console.log(mealArray);
+  console.log(database);
+
+  localStorage.setItem("mealDetails" , JSON.stringify(database));
+  
+  totalCalCarbProtGord.textContent = "Total : " + "Cal " + totalCalories.totalCal  + " /  Carb " + totalCalories.totalCarb  + " /  Prot " + totalCalories.totalProt;
+
+
+  foodNameButtonsBoxContainer.remove();
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+    
+retrieve.forEach( item => {
+
+  
+  
+  console.log(item[0]);
+  console.log(item[1]);
+  
+  createMainBox(item[0],item);
+
+
+
+
+});
 
 
     let dora;
 
     function darkMode(){ // This function will toggle the page between dark mode and light mode .
 
-      let body = document.body.classList.toggle("dark-mode");
+
+      if(dora == undefined ){
+
+        localStorage.setItem("lightmode" , "on")
+        dora = "on" ;
+
+        menuItem[1].textContent = "dark mode : off"
+
+      }else {
+
+    localStorage.setItem("lightmode" , "off")
+        dora = undefined;
+
+        menuItem[1].textContent = "dark mode : on"
+
+      }
+
+
+      body = document.body.classList.toggle("dark-mode");
        
       let nav = document.querySelector("nav").classList.toggle("light-nav");
      
-     mainMenu.classList.toggle("light-menu");
+       menu.classList.toggle("light-menu");
 
-    if(dora == undefined ){
 
-      localStorage.setItem("lightmode" , "on")
-      dora = "on" ;
-      
-    }else {
+     container.classList.toggle("dark-container");
 
-      localStorage.setItem("lightmode" , "off")
-      dora = undefined;
 
     }
-
-
-       
-
-
-
-
-     };
-
-
-
-    
-       
-
-
-if(localStorage.getItem("lightmode") == "on") {
-
-darkMode();
-
-}
-
-
-
-
-let data = JSON.parse(localStorage.getItem("mealDetails"));
-
-data.forEach((item) => {
-
-
-
-
-
-
-  item =  item.filter(value => JSON.stringify(value) !== "[]");
-
-  let subBoxForHoldFoodName = document.createElement("h3");
-  subBoxForHoldFoodName.style.color= "yellow";
-  subBoxForHoldFoodName.textContent = item[0];
-
-  let plusIcon =  document.createElement("i");
-  plusIcon.setAttribute("class" , "fa-solid fa-plus");
-  plusIcon.style.color = "yellow" ;
-  plusIcon.style.fontSize = "15px";
-  
-  let BtnToAddFoodName = document.createElement("button");
-  BtnToAddFoodName.appendChild(plusIcon);
-  BtnToAddFoodName.style.color ="yellow";
-  BtnToAddFoodName.style.marginRight = "5px"; 
-
-  let trashIcon =  document.createElement("i");
-  trashIcon.setAttribute("class" , "fa-solid fa-trash-can");
-  trashIcon.style.color = "yellow" ;
-  trashIcon.style.fontSize = "15px";
-
-  let BtnToRemMainBox = document.createElement("button");
-  BtnToRemMainBox.appendChild(trashIcon);
-  BtnToRemMainBox.textContent = "cc";
-  BtnToRemMainBox.setAttribute("class" , "BtnToRemMainBox");
-   BtnToRemMainBox.style.color = "yellow";
-
-  let boxForHoldsubBoxForHoldFoodNameAndBtns = document.createElement("span");
-  boxForHoldsubBoxForHoldFoodNameAndBtns.append(BtnToAddFoodName,BtnToRemMainBox);
-  boxForHoldsubBoxForHoldFoodNameAndBtns.style.display = "inline";
-
-  let allDiv = document.createElement("span");
-  allDiv.style.marginBottom = "5px";
-  allDiv.style.display = "flex";
-  allDiv.style.justifyContent = "space-between";
-  
-  allDiv.append(subBoxForHoldFoodName,boxForHoldsubBoxForHoldFoodNameAndBtns);
-
-  let mainBox = document.createElement("div");
-  mainBox.setAttribute("class" , "mainbox1");
-  mainBox.appendChild(allDiv);
-  
-  container.appendChild(mainBox);
-    
-  
-    let general = []
-    general.push(item[0]);
-    array.push(general);
-   
-  
-    localStorage.setItem("mealDetails" , JSON.stringify(array));
-    
-    BtnToRemMainBox.onclick = function () {  // function to remove the main box let caralho = [];
-      
-
-    general.shift();
      
-
-    container.removeChild(mainBox);
-
-    array =  array.filter(value => JSON.stringify(value) !== "[]");
-
-    localStorage.setItem("mealDetails" , JSON.stringify(array));
-    };
     
-
-    BtnToAddFoodName.onclick = function() {
-
-    BtnToAddFoodName.disabled = true;
-
-    let inputForUserAddFoodName  = document.createElement("input");
-    inputForUserAddFoodName.style.marginBottom = "10px";
-    inputForUserAddFoodName.style.color = "white";
-    inputForUserAddFoodName.setAttribute("class" ,"foods");
-    inputForUserAddFoodName.type = "text";
-    inputForUserAddFoodName.id = "united";
     
-    let inputForUserAddFoodAmount =  document.createElement("input");
-    inputForUserAddFoodAmount.style.marginBottom = "10px";
-    inputForUserAddFoodAmount.style.color = "white";
-    
-  
-    let btnForUserSubFoodNameAndAmount = document.createElement("button");
-    btnForUserSubFoodNameAndAmount.style.marginBottom = "10px";
-    btnForUserSubFoodNameAndAmount.textContent = "adicionar";
+    if(localStorage.getItem("lightmode") == "on") {
 
-    let btnForUserCloseInputs = document.createElement("button");
-    btnForUserCloseInputs .style.marginBottom = "10px";
-    btnForUserCloseInputs .textContent = "fechar";
-    btnForUserCloseInputs.onclick = function(){
-    mainBox.removeChild(boxForHoldBtnsAndAddBtn)
-    BtnToAddFoodName.disabled = false;
-    }
-
-    let xxx = document.createElement("div");
-    xxx.append(btnForUserSubFoodNameAndAmount,btnForUserCloseInputs);
-    xxx.style.display = "flex"
-    xxx.style.justifyContent = "space-evenly";
+      darkMode();
+      
+      }
 
 
-   
-    let boxForHoldBtnsAndAddBtn = document.createElement("div");
-    boxForHoldBtnsAndAddBtn.style.display = "grid";
-    boxForHoldBtnsAndAddBtn.style.padding = "10px";
 
-    boxForHoldBtnsAndAddBtn.append(inputForUserAddFoodName,inputForUserAddFoodAmount,xxx );
-    mainBox.appendChild(boxForHoldBtnsAndAddBtn);
 
-    $("#united").autocomplete({
 
-      source : foodsArray 
-    });
 
-    btnForUserSubFoodNameAndAmount.onclick  = () =>  addFood(inputForUserAddFoodName.value,inputForUserAddFoodAmount.value ,mainBox,general,BtnToRemMainBox,inputForUserAddFoodName,inputForUserAddFoodAmount)
-
-}
-
-let  inputForUserAddFoodName = "";
-let  inputForUserAddFoodAmount = "";
-
-for (let i = 1 ; i < item.length ; i++) {
-
-addFood(item[i][0].name,item[i][0].amount,mainBox,general,BtnToRemMainBox,inputForUserAddFoodName,inputForUserAddFoodAmount)
-
-};
-
-  localStorage.setItem("mealDetails" , JSON.stringify(array));
-
-})
 
   
-    
-
- 
 
   
     
